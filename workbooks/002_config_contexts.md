@@ -18,15 +18,15 @@ The following prerequisites are required before beginning these exercises:
 
 ## Exercise 1: Creating Config Contexts
 
-In this exercise, we will create global Config Contexts and attach them to devices.
+In this exercise, we will create Config Contexts and assign them to a tenant.
 
 ### Task 1 – Create Config Contexts
 
-1. Click on the **Extras** menu item in the sidebar.
-2. Under the Extras menu, click on **Config Contexts**.
+1. Click on the **Provisioning** menu item in the sidebar.
+2. Under the Provisioning menu, click on **Config Contexts**.
 3. In the Config Contexts page, click on the **+ Add** button.
-4. In the form that appears, enter `NTP` as the name.
-5. In the JSON data box, paste the following:
+4. In the form that appears, enter **NTP** as the name.
+5. In the data box, paste the following JSON:
 
     ```json
     {
@@ -37,8 +37,9 @@ In this exercise, we will create global Config Contexts and attach them to devic
     }
     ```
 
-6. Click **Submit** to create the ntp context.
-7. Repeat steps 3-6 to create a context named `Syslog 1` with JSON data for syslog servers (below).
+6. Under **Assignment** select **Global Tech** under **Tenant**.
+7. Click **Submit** to create the NTP context.
+8. Repeat steps 3-6 to create a context named **Syslog 1** with JSON data for syslog servers (below).
 
     ```json
     {
@@ -53,21 +54,28 @@ In this exercise, we will create global Config Contexts and attach them to devic
 
 1. Click on the **Devices** menu item in the sidebar.
 2. Under Devices, click on **Devices**.
-3. Click on a device name to open its details page.
+3. Click on a **spine1-nxos** to open its details page.
 4. Switch to the **Config Contexts** tab.
-5. Click on **+ Add** and select the **ntp** and **syslog 1** contexts.
-6. Click on the **Rendered** button to view the combined context data.
+5. You will now see:
 
-## Exercise 2: Altering Config Context Weight
+| Context Type     | Description                                                                                          |
+|------------------|------------------------------------------------------------------------------------------------------|
+| Local Context    | Empty. This is Config Context created directly within the device object.                              |
+| Source Context   | Details of the Config Contexts. We can see the Config Contexts just created. Note: The weights are also shown. |
+| Rendered Context | The Config Context result. i.e the resulting data based on weights and hierarchy.                     |
 
-In this exercise, we will modify context data precedence using weights.
+
+6. Make a note of the IPs within the **Rendered Context**.
+  # Exercise 2: Altering Config Context Weight
+
+In this exercise, we will modify Config Context precedence using weights.
 
 ### Task 1 – Alter Weight
 
-1. Go back to **Extras > Config Contexts** in the sidebar.
+1. Go back to **Provisioning > Config Contexts** in the sidebar.
 2. Click on **+ Add** to create a new context.
-3. Name the context `Syslog 2`.
-4. Add the following JSON data with a weight of `200`:
+3. Name the context **Syslog 2**.
+4. Add the following JSON data with a weight of **200**:
 
     ```json
     {
@@ -78,26 +86,58 @@ In this exercise, we will modify context data precedence using weights.
     }
     ```
 
-5. Click **Submit** to create Syslog 2.
+5. Click **Submit** to create **Syslog 2**.
 
 ### Task 2 – Observe Outcome
 
-1. Return to the device page that has syslog contexts attached.
-2. View the **Rendered** config context data.
-3. Note that Syslog 2 takes precedence due to higher weight.
+1. Return to the device page via **Devices > Devices > spine1-nxos**.
+2. Goto the **Config Context** tab.
+3. View the **Rendered Context** data.
+
+**Question**: Has the Rendered Context changed? And if so why?
+
+<details>
+<summary><b>Answer</b></summary>
+<br>
+Yes. The Syslog data has changed due to the data within **Syslog 2** having a higher weight then **Syslog 1**. Therefore **Syslog 2** takes precedence.
+
+
+</details>
+
+
 
 ## Exercise 3: Create Local Config Contexts
 
-In this exercise, we will override global contexts using local device contexts.
+In this exercise, we will override the "global" Config Contexts using local Config Contexts.
 
 ### Task 1 – Create Local Config Context
 
-1. While still on the device details page, switch to the **Local Config Contexts** tab.
-2. Click on **+ Add** to create a new local context.
-3. Name it `syslog` and add JSON data with a higher weight.
-4. Click **Submit** to save this local syslog context.
+1. While still on the device details page, click **Edit**.
+2. Scroll down to **Local Config Context Data**.
+3. Add the following JSON:
 
-### Task 2 – Validate Local Config Context Data
+    ```json
+    {
+      "syslog_servers": [
+        "10.1.200.3",
+        "10.1.200.4"
+      ]
+    }
+    ```
+4. Click **Save**.
 
-1. Go back to the **Rendered** tab for the config context data.
-2. Observe that the local syslog context now takes precedence.
+
+
+
+### Task 2 – Validate the Rendered Config Context Data
+
+3. Go back to the **Config Context** tab.
+
+**Question**: Has the Rendered Context changed? And if so why?
+
+<details>
+<summary><b>Answer</b></summary>
+<br>
+Yes. The Syslog data has changed again. This is because the Local Context data takes full precedence over "global" Config Context data.
+
+</details>
