@@ -1,0 +1,77 @@
+## Introduction to NetBox
+
+## The NetBox model
+
+* Organization
+  - show regions, parents, sites, site groups, contacts, racks, rack elevations, ultilization
+
+* Device
+  - Show the various components
+  - Add a device type via the library - https://github.com/netbox-community/devicetype-library/
+  - Mention module types and library
+  - show device, platform, interfaces, management interface (filter update), searching.
+
+* Connections
+  - show how to make a connection
+  - mention allow you to edit but not create i.e you have to create the connection first.
+  -
+
+* Prefix
+  - show the prefixes, child prefixes
+  - show the assignment of an IP address
+  - show the creation of a range
+  - show the ip addresses and note the primary ip address
+
+
+## Working with NetBox
+
+
+## NetBox and Ansible (Modules)
+
+* show various modules via https://docs.ansible.com/ansible/latest/collections/netbox/netbox/index.html
+* go over additions in `playbooks/001_pb_update_netbox.yml`
+
+```
+cd examples/ansible
+export $(cat ../../.env)
+
+# remove connections in nb
+ansible-playbook -i netbox_inventory.yml playbooks/001_pb_update_netbox.yml
+```
+
+
+## NetBox and Ansible (Inventory)
+
+```
+ansible-inventory --graph -i netbox_inventory.yml
+ansible-inventory --list -i netbox_inventory.yml
+
+cd examples/ansible
+ansible-playbook playbooks/002_pb_backup_configs.yml -i netbox_inventory.yml
+
+https://docs.ansible.com/ansible/latest/collections/netbox/netbox/nb_inventory_inventory.html
+```
+
+
+## Nornir + NetBox (Inventory)
+
+```
+ipython -i examples/nornir/nr_setup.py
+
+# groups
+rprint(nr.inventory.groups)
+
+# all data from NB
+nr.inventory.dict()
+
+# host data
+#from rich import inspect
+#inspect(nr.inventory.hosts['leaf1-ios'])
+nr.inventory.hosts['leaf1-ios'].data
+nr.inventory.hosts['leaf1-ios']['local_context_data']
+
+# Full example
+python examples/nornir/nr_backup_config.py
+```
+
+
