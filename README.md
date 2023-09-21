@@ -1,10 +1,9 @@
-# NetBox Zero-to-Hero Live
-The repo contains the scripts, examples and workbooks for the NetBox Labs:
-> Zero to Hero NetBox Live Training
+# NetBox Fundamentals Live
+The repo contains the workbooks for the NetBox Labs:
+> NetBox Fundamentals Live
 
 ## Repo Layout
 * Exercises - `workbooks/`
-* Examples - `examples/ansible` and `examples/nornir`
 
 ## Terms and Conditions
 All content within this repo is owned by Packet Coders.<br>
