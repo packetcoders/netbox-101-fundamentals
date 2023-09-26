@@ -47,6 +47,9 @@ Note: It is this data that will be available to us within the template.
     {% for syslog_server in syslog_servers %}
     logging host {{ syslog_server }}
     {% endfor %}
+
+    router ospf 1
+      router-id {{ device.cf.ospf_router_id }}
     ```
 
 6. Scroll down and click the **Submit** button to create the template.

@@ -416,3 +416,31 @@ Finally, you'll check the utilization of your defined prefix to see how many add
 2. Find the prefix **172.29.151.0/24** in the list and click on it to open the prefix details.
 3. In the prefix details, you can see the **Utilization** bar.
 4. Click on the **IP Addresses** tab to see the assigned IPs.
+
+## Exercise 5: Working with Custom Fields
+In this exercise, you'll work with NetBox custom fields.
+
+### Task 1 - **Creating a Custom Field**
+You will now create a new custom field to store the OSPF Router ID for each device.
+
+1. Go to **Customization** on the left of the NetBox UI.
+2. Click **+** next to **Custom Fields**.
+3. Create a new custom field by selecting the following options:
+
+      |   |  |
+      |-------------|-------------|
+      | **Content types**  | **DCIM > Device** |
+      | **Name**  | **ospf_router_id** |
+      | **Type** |    **Text** |
+
+### Task 2 - **Populating a Custom Field**
+
+1. Goto each Device.
+2. Add their OSPF Router ID using the new custom field created, using the following values:
+
+      | Device Name  | Custom Field Value |
+      |-------------|-------------|
+      | spine1-nxos  | **1.1.1.1** |
+      | spine2-nxos  | **2.2.2.2** |
+      | leaf1-ios  |    **3.3.3.3** |
+      | leaf2-ios   |    **4.4.4.4** |
