@@ -104,8 +104,8 @@ At the point Jinja renders a template, it removes any delimters such as `{% for 
 
     ```
     {
-      "trim_blocks": True,
-      "lstrip_blocks": True
+      "trim_blocks": true,
+      "lstrip_blocks": true
     }
     ```
 
