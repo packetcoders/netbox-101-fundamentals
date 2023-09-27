@@ -75,7 +75,7 @@ In this exercise, we will modify Config Context precedence using weights.
 1. Go back to **Provisioning > Config Contexts** in the sidebar.
 2. Click on **+ Add** to create a new context.
 3. Name the context **Syslog 2**.
-4. Add the following JSON data with a weight of **200**:
+4. Add the following JSON data with a weight of **2000**:
 
     ```json
     {
