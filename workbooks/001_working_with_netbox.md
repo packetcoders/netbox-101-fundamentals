@@ -400,10 +400,10 @@ Next, you'll assign individual addresses from your defined prefix to your device
 
       | Device Name  | Address |
       |-------------|-------------|
-      | spine1-nxos  | **172.29.151.1** |
-      | spine2-nxos  | **172.29.151.2** |
-      | leaf1-ios |    **172.29.151.3** |
-      | leaf2-ios |    **172.29.151.4** |
+      | spine1-nxos  | **172.29.151.1/24** |
+      | spine2-nxos  | **172.29.151.2/24** |
+      | leaf1-ios |    **172.29.151.3/24** |
+      | leaf2-ios |    **172.29.151.4/24** |
 
    g. Select **Tenant** as **Global Tech**.
 
