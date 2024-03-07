@@ -8,4 +8,4 @@ The repo contains the workbooks for the NetBox Labs:
 ## Terms and Conditions
 All content within this repo is owned by Packet Coders.<br>
 Distribution of any content or material within this repo is not permitted.<br>
-Copyright 2023, Packet Coders.
+Copyright 2024, Packet Coders.
