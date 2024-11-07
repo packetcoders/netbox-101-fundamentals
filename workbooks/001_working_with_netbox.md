@@ -168,7 +168,7 @@ Finally, you'll create sites which represent physical locations in your network.
    | Slug    | This field will auto-populate. |
    | Status  | Select the appropriate status (e.g., **Active**) |
    | Region  | Select **France** from the dropdown menu. |
-   | Tenant  | Optional. Select the appropriate tenant if required. |
+   | Tenant  | Select **Global Tech** |
 
    b. Click on the **Create** button to save the new site.
 
@@ -292,10 +292,11 @@ After defining the necessary device types, you'll create instances of these devi
    | Device Status | Select **Active**. |
    | Platform | Select **nxos**. |
    | Site | Select the **Paris Data Center** site. |
+   | Tenant  | Select **Global Tech** |
 
    b. Click on the **Create** button to save the new device.
 
-5. Repeat the above steps to create the following devices:
+6. Repeat the above steps to create the following devices:
 
 | Device Name|   Device Type | Platform |
 |-------------|-------------|----------|
