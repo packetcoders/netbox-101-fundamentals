@@ -90,7 +90,7 @@ Here, you'll define the tenant to segregate resources in NetBox.
 
    | Setting        | Description |
    |----------------|-------------|
-   | Name           | A unique name for the tenant. |
+   | Name           | Enter **Global Tech** |
    | Slug    | This field will auto-populate. |
 
 4. Click on the **Create** button to save the new tenant.
