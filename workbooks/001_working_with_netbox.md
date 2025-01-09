@@ -139,7 +139,7 @@ In this task, you'll create the regions, allowing you to organize your sites geo
 
    b. Fill in the required fields in the form:
 
-   | Setting | Description |
+   | Field | Description |
    |---------|-------------|
    | Name    | Enter **United States**. |
    | Slug    | This field will auto-populate. |
@@ -162,17 +162,17 @@ Finally, you'll create sites which represent physical locations in your network.
 
    a. Fill in the required fields in the form:
 
-   | Setting | Description |
+   | Field | Description |
    |---------|-------------|
    | Name    | Enter **Paris Data Center**. |
    | Slug    | This field will auto-populate. |
-   | Status  | Select the appropriate status (e.g., **Active**) |
+   | Status  | Select **Active**. |
    | Region  | Select **France** from the dropdown menu. |
    | Tenant  | Select **Global Tech** |
 
    b. Click on the **Create** button to save the new site.
 
-4. Repeat the above steps to create more sites:
+4. Repeat the above steps to create the following sites:
 
 | Site Name              | Region       |
 |------------------------|--------------|
