@@ -99,7 +99,7 @@ In this exercise, we will modify Config Context precedence using weights.
 <details>
 <summary><b>Answer</b></summary>
 <br>
-Yes. The Syslog data has changed due to the data within **Syslog 2** having a higher weight then **Syslog 1**. Therefore **Syslog 2** takes precedence.
+Yes. The Syslog data has changed due to the data within <b>Syslog 2</b>b having a higher weight then <b>Syslog 1</b>b>. Therefore <b?Syslog 2</b> takes precedence.
 
 
 </details>
