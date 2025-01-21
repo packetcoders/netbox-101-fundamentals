@@ -335,12 +335,12 @@ Here, you'll place your previously defined devices into a rack.
 
    d. Specify the **Position** in the rack where the device is installed. Positions are shown below:
 
-   | Device Name  | Postion |
-   |-------------|-------------|
-   | spine1-nxos  | **U42.0** |
-   | spine2-nxos  | **U41.0** |
-   | leaf1-ios |    **U40.0** |
-   | leaf2-ios |    **U39.0** |
+   | Device Name  | Postion | Rack Face |
+   |-------------|-------------| ---- |
+   | spine1-nxos  | **U42.0** | Front |
+   | spine2-nxos  | **U41.0** | Front |
+   | leaf1-ios |    **U40.0** | Front |
+   | leaf2-ios |    **U39.0** | Front |
 
    e. Click on the **Update** button to save the changes.
 
