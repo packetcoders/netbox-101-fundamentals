@@ -211,7 +211,7 @@ You'll use the NetBox community's device type library to import definitions for 
 
 3. Use the search bar to find the required device types. Let's start with **Nexus 92348GC-X**.
 
-   a. Type **Nexus 92348GC-X** in the search bar and press Enter.
+   a. Type **92348GC-X** in the search bar and press Enter.
 
    b. At this point you will only see a preview of the template. Click on the template to see all of it (should be ~129 lines long).
 
