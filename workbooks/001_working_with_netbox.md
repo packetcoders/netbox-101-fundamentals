@@ -227,7 +227,7 @@ You'll use the NetBox community's device type library to import definitions for 
 
    d. Click the **Submit** button to import the device type.
 
-6. Repeat the above steps to import the **Catalyst 9300-24P** device type.
+6. Repeat the above steps to import the **9300-24P** device type.
 
 7. Once complete, under the **Devices** menu, click **Device Types**.
 
