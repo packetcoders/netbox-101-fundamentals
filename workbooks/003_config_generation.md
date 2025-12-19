@@ -1,4 +1,4 @@
-# Workbook 3: Config Templates
+# Workbook 3: Config Generation
 
 ## Learning Objectives
 

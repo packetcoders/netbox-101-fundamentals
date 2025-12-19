@@ -1,4 +1,4 @@
-# Workbook 1: Working with NetBox
+# Workbook 1: The NetBox Model
 
 ## Learning Objectives
 

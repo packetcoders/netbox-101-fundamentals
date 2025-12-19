@@ -1,4 +1,4 @@
-# Workbook 2: Config Contexts
+# Workbook 2: Extending the Model
 
 ## Learning Objectives
 
