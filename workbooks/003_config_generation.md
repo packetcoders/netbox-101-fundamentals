@@ -2,10 +2,7 @@
 
 ## Learning Objectives
 
-- Understand how to create Jinja2 configuration templates in NetBox.
-- Assign templates to devices and render the configuration.
-- Control whitespace and formatting in rendered configs.
-
+TBC
 ## Overview
 
 In this workbook we will create a configuration template using Jinja2 syntax, assign it to devices, and validate the rendered configurations.
@@ -13,94 +10,67 @@ In this workbook we will create a configuration template using Jinja2 syntax, as
 ## Before You Begin
 
 1. Access your NetBox instance.
-2. Ensure the Config Contexts for NTP and Syslog have been created from workbook 2.
+2. Ensure the Config Contexts (NTP, Syslog, Service Endpoint), custom field (`ospf_router_id`), and ServiceEndpoint custom object were completed in Workbook 2.
+3. Confirm the spine devices from Workbook 1 have management IPs assigned within the Global Tech Production VRF.
 
 ## Exercise 1: Creating a Config Template
 
-In this exercise we will build a template that renders a basic device config using Context Config data.
+In this exercise we will build a template that consumes the data created in the previous workbooks.
 
-### Task 1 - Observe Available Context Data
+### Task 1 – Observe Available Context Data
 
 1. In the sidebar menu, click on **Devices**.
 2. Under Devices, click on **Devices** to access the devices list.
-3. Click on **spine1-nxos** to open its details page.
+3. Click on **spine1** to open its details page.
 4. Switch to the **Render Config** tab.
-5. Observe the data within the **Context Data** panel.
+5. Review the **Context Data** panel and confirm it includes:
+   * `ntp_servers` and `syslog_servers` from Config Contexts.
+   * `service_endpoint` data from the ServiceEndpoint custom object.
+   * `device.cf.ospf_router_id` from the custom field.
+   * The device’s assigned management address.
 
-Note: It is this data that will be available to us within the template.
-
-### Task 2 - Create a Template
+### Task 2 – Create the Cisco Template
 
 1. In the sidebar menu, click on **Provisioning**.
 2. Click on **Config Templates** to access the template list.
-3. Click on the **+ Add** button to create a new template.
-4. In the **Name** field, enter **Cisco Template** as the template name.
-5. In the **Template code** box, enter the following Jinja2 syntax:
+3. Click the **+ Add** button to create a new template.
+4. In the **Name** field, enter **Cisco Template**.
+5. In the **Template code** box, enter the following Jinja2 syntax (update the interface name if your management interface differs):
 
     ```
     hostname {{ device.name }}
 
+    interface mgmt0
+      description Management Interface
+    {% if device.primary_ip4 %}
+      ip address {{ device.primary_ip4.address }}
+      ip vrf forwarding {{ device.primary_ip4.vrf.name }}
+    {% endif %}
+
+    {% if ntp_servers %}
+    ! NTP servers delivered via Config Context
     {% for server in ntp_servers %}
     ntp server {{ server }}
     {% endfor %}
+    {% endif %}
 
+    {% if syslog_servers %}
+    ! Syslog servers delivered via Config Context (respecting weights and overrides)
     {% for syslog_server in syslog_servers %}
     logging host {{ syslog_server }}
     {% endfor %}
+    {% endif %}
 
     router ospf 1
       router-id {{ device.cf.ospf_router_id }}
+
+    {% if service_endpoint %}
+    ! External service reference provided by Custom Object
+    ! {{ service_endpoint.name }} -> {{ service_endpoint.url }}
+    {% endif %}
     ```
 
-6. Scroll down and click the **Submit** button to create the template.
-7. The new template should now be listed on the templates page.
-
-## Exercise 2: Render Config Template
-
-Here we will assign our template to our devices and validate the rendered configs.
-
-### Task 1 - Assign Template to Devices
-
-1. In the sidebar menu, click on **Devices**.
-2. Under Devices, click on **Devices** to access the devices list.
-3. Using the check boxes, select all of your device.
-4. Click the **Edit Selected** button at the bottom of the screen.
-5. In the form that appears, scroll down to the **Configuration** section.
-6. Choose the **Cisco Template** option from the **Config Template** dropdown.
-7. Click **Save** at the bottom of the form to apply the template.
-
-### Task 2 - Validate Rendered Config
-
-1. In the devices list, click on one of your devices.
-2. In the device page, switch to the **Render Config** tab.
-3. Observe the output within the **Rendered Config** field.
-
-### Task 3 - Download Rendered Config
-
-1. While viewing the rendered config, click the **Download** button.
-2. Save the downloaded file to your local computer.
-3. Open the file to inspect the fully rendered configuration.
-
-## Exercise 3: Update Template Whitespace
-
-Here we will adjust the template settings to improve rendered config white space formatting.
-
-### Task 1 - Validate Rendered Config
-
-1. Observe there are unwanted extra lines in the rendered configuration.
-
-**Why is this?**
-
-At the point Jinja renders a template, it removes any delimters such as `{% for x in y %}`. However (by default) any new line characters or spacing that were part of the delimiter remain, and are transfered to the generated output!
-
-### Task 2 - Apply Whitespace Control
-
-1. In the sidebar menu, click on **Provisioning**.
-2. Click on **Config Templates** to access the templates list.
-3. Click on the **Cisco Template** to open its details.
-4. Click on **Edit**.
-4. Scroll down to the **Environment params** section.
-5. Add the following JSON data:
+6. Scroll down to **Environment params** and add the following JSON to control whitespace:
 
     ```
     {
@@ -109,22 +79,53 @@ At the point Jinja renders a template, it removes any delimters such as `{% for 
     }
     ```
 
-6. Click **Submit** at the bottom to save the template changes.
+7. Click **Submit** to create the template.
 
-<details>
-<summary><b>What does trim_blocks and lstrip_blocks do?</b></summary>
+### Task 3 – Verify Template Compilation
 
-The `trim_blocks` and `lstrip_blocks` settings are template parameters that control whitespace and formatting in the rendered output:
+1. Open the newly created **Cisco Template** and click **Preview**.
+2. Choose **spine1** in the preview form and render the template.
+3. Confirm the output contains the management interface, OSPF router ID, NTP/Syslog blocks, and service endpoint comment.
 
-- `trim_blocks`: This removes any excess whitespace after a block. For example, it will remove trailing newlines after `{% endfor %}` blocks.
+## Exercise 2: Rendering the Template
 
-- `lstrip_blocks`: This removes any whitespace indentation from the beginning of blocks. For example, it will strip any initial indentation spaces or newlines before `{% for %}` blocks.
+Here we will assign the template to the spine devices and validate the rendered configuration.
 
-Enabling these parameters removes extraneous whitespace from the rendered configurations.
-</details>
+### Task 1 – Assign Template to Devices
 
-### Task 3 - Validate Improvement
+1. In the sidebar menu, click on **Devices**.
+2. Under Devices, click on **Devices** to access the devices list.
+3. Using the check boxes, select **spine1** and **spine2**.
+4. Click the **Edit Selected** button at the bottom of the screen.
+5. In the form that appears, scroll down to the **Configuration** section.
+6. Choose **Cisco Template** from the **Config Template** dropdown and click **Save**.
 
-1. Go back to the device which has the template assigned.
-2. Re-render the configuration and compare to before.
-3. Note that excess whitespace has now been removed from the rendered config.
+### Task 2 – Validate Rendered Output
+
+1. From the devices list, open **spine1** and switch to the **Render Config** tab.
+2. Confirm the rendered configuration matches the preview results, including:
+   * Management interface stanza with VRF assignment.
+   * NTP and Syslog blocks reflecting the weighted Config Contexts.
+   * OSPF router ID sourced from the custom field.
+   * Service endpoint comment from the custom object data.
+3. Repeat for **spine2** and verify the router ID reflects its custom field value.
+
+### Task 3 – Download Rendered Config
+
+1. While viewing the rendered config, click **Download**.
+2. Save the file locally and review it to ensure whitespace is trimmed as expected.
+
+## Exercise 3: Iterating on Data-Driven Outputs
+
+This exercise highlights how data changes propagate through the rendered configuration.
+
+### Task 1 – Update Shared Data
+
+1. Navigate to **Provisioning > Config Contexts** and edit the **Syslog 2** context.
+2. Replace one of the syslog server IPs with a new value and click **Submit**.
+
+### Task 2 – Re-render and Observe
+
+1. Return to **Devices > Devices > spine1** and open the **Render Config** tab.
+2. Verify the syslog section reflects the updated value.
+3. Optionally adjust the `ospf_router_id` custom field or the ServiceEndpoint object to see how those changes appear in the rendered output.

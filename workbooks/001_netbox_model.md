@@ -2,12 +2,7 @@
 
 ## Learning Objectives
 
-By completing these exercises, students will be able to:
-
-* Create and manage key organizational elements in NetBox including tenants, regions, sites, manufacturers, and platforms.
-* Import device types from an external library and create devices with specific attributes.
-* Manage IP Address space by creating a prefix and assigning IP addresses to devices from that prefix.
-* Understand the process of adding devices to a rack and visualizing them in a rack elevation.
+TBC
 
 ## Overview
 Through the following exercises, we will be populating a new NetBox instance based on the following.
@@ -17,63 +12,50 @@ In reality, many of the elements below will have **dotted lines** back to other 
 ```
 NetBox
 |
-|-- Organizations
-|   |-- Tenants
+|-- Organization
+|   |-- Tenant
 |   |   |-- Global Tech
 |   |-- Regions
 |   |   |-- Europe
-|   |   |   |-- France
-|   |   |   |-- Germany
-|   |   |-- North America
-|   |   |   |-- United States
-|   |   |   |-- Canada
+|   |       |-- France
 |   |-- Sites
-|   |   |-- Paris Data Center
-|   |   |-- Berlin Data Center
-|   |   |-- New York Data Center
-|   |   |-- Toronto Data Center
+|       |-- Paris Data Center
 |
 |-- Devices
 |   |-- Device Types
 |   |   |-- Nexus 92348GC-X
-|   |   |-- Catalyst 9300-24P
 |   |-- Devices
-|   |   |-- spine1-nxos
-|   |   |-- spine2-nxos
-|   |   |-- leaf1-ios
-|   |   |-- leaf2-ios
+|   |   |-- spine1
+|   |   |-- spine2
 |   |-- Platforms
 |   |   |-- nxos
-|   |   |-- ios
 |   |-- Manufacturers
 |   |   |-- Cisco
 |
 |-- Racks
 |   |-- Rack1
-|   |   |-- Devices
-|   |   |   |-- spine1-nxos
-|   |   |   |-- spine2-nxos
-|   |   |   |-- leaf1-ios
-|   |   |   |-- leaf2-ios
+|       |-- Devices
+|           |-- spine1
+|           |-- spine2
 |
 |-- IPAM (IP Address Management)
+|   |-- VRFs
+|   |   |-- Global Tech VRF
 |   |-- Prefixes
 |   |   |-- 172.29.151.0/24
 |   |-- IP Addresses
-|   |   |-- 172.29.151.1 (Assigned to spine1-nxos)
-|   |   |-- 172.29.151.2 (Assigned to spine2-nxos)
-|   |   |-- 172.29.151.3 (Assigned to leaf1-ios)
-|   |   |-- 172.29.151.4 (Assigned to leaf2-ios)
+|       |-- 172.29.151.1 (Assigned to spine1)
+|       |-- 172.29.151.2 (Assigned to spine2)
 
 ```
 
-## Before you Begin
+## Before You Begin
 
 The following prerequisites are required before beginning these exercises:
 
 * Open a session to your NetBox instance directly within your browser.
 
-Note: Your username and password would of been supplied to you previously.
+Note: Your username and password would have been supplied to you previously.
 
 
 
@@ -98,350 +80,144 @@ Here, you'll define the tenant to segregate resources in NetBox.
 
 
 ### Task 2 - **Creating Regions**
-In this task, you'll create the regions, allowing you to organize your sites geographically.
+In this task, you'll establish a simple regional hierarchy that supports a single site.
 
 1. Under the **Organization** menu, click **Regions**.
 2. Click the **+ Add** button to add a new region.
+3. Create the parent region **Europe** and leave the **Parent** field blank.
+4. After saving, click **+ Add** again and create the child region **France**, selecting **Europe** as the parent.
+5. Return to the **Regions** list and confirm both regions appear in the hierarchy.
 
-3. First, let's create the parent region **Europe**:
+### Task 3 - **Creating a Site**
+Finally, you'll create a single site that represents the location housing your devices.
 
-   a. Fill in the required fields in the form:
-
-   | Setting | Description |
-   |---------|-------------|
-   | Name    | Enter **Europe**. |
-   | Slug    | This field will auto-populate. |
-   | Parent  | Leave this blank, as this is a parent region. |
-
-   b. Click on the **Create** button to save the new region.
-
-4. Repeat the steps for creating the parent region **North America**.
-
-5. Now, let's create child regions. First, we'll create **France** under **Europe**:
-
-   a. Click the **+ Add** button to add a new region.
-
-   b. Fill in the required fields in the form:
-
-   | Setting | Description |
-   |---------|-------------|
-   | Name    | Enter **France**. |
-   | Slug    | This field will auto-populate. |
-   | Parent  | Select **Europe** from the dropdown menu. |
-
-   c. Click on the **Create** button to save the new child region.
-
-6. Repeat the above steps to create the second child region **Germany** under **Europe**.
-
-7. Next, let's create child regions under **North America**. Create **United States**:
-
-   a. Click the **+ Add** button to add a new region.
-
-   b. Fill in the required fields in the form:
-
-   | Field | Description |
-   |---------|-------------|
-   | Name    | Enter **United States**. |
-   | Slug    | This field will auto-populate. |
-   | Parent  | Select **North America** from the dropdown menu. |
-
-   c. Click on the **Create** button to save the new child region.
-
-8. Repeat the above steps to create the second child region **Canada** under **North America**.
-
-9. Now under the **Organization** menu, click **Regions**, to see the regions you have just created.
-
-### Task 3 - **Creating Sites**
-Finally, you'll create sites which represent physical locations in your network.
-
-
-1. Under the **Organization** menu, click **Sites**.
-2. Click the **+ Add** button to add a new site.
-
-3. Now, let's create the first site in France called **Paris Data Center**:
-
-   a. Fill in the required fields in the form:
+1. Under the **Organization** menu, click **Sites** and then **+ Add**.
+2. Create the **Paris Data Center** site using the following values:
 
    | Field | Description |
    |---------|-------------|
    | Name    | Enter **Paris Data Center**. |
-   | Slug    | This field will auto-populate. |
    | Status  | Select **Active**. |
-   | Region  | Select **France** from the dropdown menu. |
-   | Tenant  | Select **Global Tech** |
+   | Region  | Select **France**. |
+   | Tenant  | Select **Global Tech**. |
 
-   b. Click on the **Create** button to save the new site.
-
-4. Repeat the above steps to create the following sites:
-
-| Site Name              | Region       |
-|------------------------|--------------|
-| Berlin Data Center     | Germany      |
-| New York Data Center   | United States|
-| Toronto Data Center    | Canada       |
-
-5. Now under the **Organization** menu, click **Sites**, to see the sites you have just created.
+3. Click **Create** and verify the new site is listed.
 
 
 ## Exercise 2: Working with NetBox Devices
-In this exercise, you will define the hardware present in your network by importing device types and creating devices.
+In this exercise, you will import a device type, upload elevation imagery, and create two spine devices for the Paris Data Center.
 
-### Task 1 – Create a device type via library import
-Task 1 - **Creating a Device Type via Library Import**
-You'll use the NetBox community's device type library to import definitions for your hardware.
+### Task 1 – Import a Device Type from the Community Library
+You'll use the NetBox community device type library to seed your environment with the required hardware definition.
 
-1. Before importing a device type, we need to ensure that the required manufacturers are available.
+1. Under the **Devices** menu, click **Manufacturers** and create the **Cisco** manufacturer if it does not already exist.
+2. Visit the Device Type Library on GitHub: <https://github.com/netbox-community/devicetype-library/>.
+3. Search for **cisco_nexus-92348gc-x** (Nexus 92348GC-X) and open the YAML definition.
+4. Copy the YAML contents to your clipboard.
+5. Return to NetBox and navigate to **Devices > Device Types > Import**.
+6. Paste the YAML into the **Data** box, then click **Submit** to create the device type.
 
-   **Creating a Manufacturer**
+### Task 2 – Add Elevation Images to the Device Type
+1. Download the elevation images from the GitHub repository:
+   * `cisco-nexus-92348gc-x.front.png`
+   * `cisco-nexus-92348gc-x.rear.png`
+2. In NetBox, open **Devices > Device Types** and select the newly imported Nexus device type.
+3. Use the **Front Image** tab to upload the front elevation PNG.
+4. Use the **Rear Image** tab to upload the rear elevation PNG.
+5. Set **Full Depth** to **Yes**.
 
-      a. Under the **Devices** menu, click **Manufacturers**.
+### Task 3 – Create Spine Devices
+Before creating devices, ensure the **nxos** platform and the **Spine** device role exist (create them if needed).
 
-      b. Click the **+ Add** button to add a new manufacturer.
-
-      c. Fill in the required fields in the form to create the **Cisco** manufacturer:
-
-      | Setting | Description |
-      |---------|-------------|
-      | Name    | Enter **Cisco**. |
-      | Slug    | This field will auto-populate. |
-
-      d. Click the **Create** button to save the new manufacturer.
-
-2. Open your web browser and navigate to the Device Type Library on GitHub: [https://github.com/netbox-community/devicetype-library/](https://github.com/netbox-community/devicetype-library/).
-
-3. Use the search bar to find the required device types. Let's start with **Nexus 92348GC-X**.
-
-   a. Type **92348GC-X** in the search bar and press Enter.
-
-   b. At this point you will only see a preview of the template. Click on the template to see all of it (should be ~129 lines long).
-
-   c. Highlight the YAML for the device type and copy it to your clipboard.
-
-5. Now, go back to NetBox.
-
-   a. Under the **Devices** menu, click **Device Types**.
-
-   b. Click on the **Import** button.
-
-   c. Paste the device type template YAML into the **Data** box.
-
-   d. Click the **Submit** button to import the device type.
-
-6. Repeat the above steps to import the **9300-24P** device type.
-
-7. Once complete, under the **Devices** menu, click **Device Types**.
-
-   a. Click on each device type added
-   b. Click on the **Interfaces** tab and view the interfaces for the device type.
-
-Note: The purpose of viewing the device type added is just to understand the new hardware that will be added to NetBox each time we use these device types when creating devices.
-
-
-### Task 2 - **Creating a Device**
-After defining the necessary device types, you'll create instances of these devices, representing specific pieces of hardware in your network.
-
-1. Before creating a device, we need to ensure that the required platforms and roles are available.
-
-   **Creating Platforms**
-
-     a. Under the **Devices** menu, click **Platforms**.
-
-     b. Click the **+ Add** button to add a new platform.
-
-    c. Fill in the required fields in the form to create the **nxos** platform:
-
-      | Setting | Description |
-      |---------|-------------|
-      | Name    | Enter **nxos**. |
-      | Slug    | This field will auto-populate. |
-      | Manufacturer | Select **Cisco** from the dropdown menu. |
-
-      iv. Click the **Create** button to save the new platform.
-
-      v. Repeat these steps to add another platform, **ios**.
-
-   **Creating Roles**
-
-      a. Under the **Devices** menu, click **Device Roles**.
-
-      b. Click the **+ Add** button to add a new role.
-
-      c. Fill in the required fields in the form to create the **spine** role:
-
-      | Setting | Description |
-      |---------|-------------|
-      | Name    | Enter **Spine**. |
-      | Slug    | This field will auto-populate. |
-
-      d. Click the **Create** button to save the new role.
-
-      e. Repeat these steps to add another role, **Leaf**.
-
-2. Now, with the platforms and manufacturer ready, we can create our devices. Under the **Devices** menu, click **Devices**.
-3. Click the **+ Add** button to add a new device.
-
-4. Let's create the first device, **spine1-nxos**:
-
-   a. Fill in the required fields in the form:
+1. Navigate to **Devices > Devices** and click **+ Add**.
+2. Create the device **spine1** with the following values:
 
    | Setting | Description |
    |---------|-------------|
-   | Name    | Enter **spine1-nxos**. |
-   | Device Role | Select the appropriate role (e.g., **Spine**). |
-   | Device Type | Select **Nexus 92348GC-X**. |
-   | Device Status | Select **Active**. |
-   | Platform | Select **nxos**. |
-   | Site | Select the **Paris Data Center** site. |
-   | Tenant  | Select **Global Tech** |
+   | Name    | **spine1** |
+   | Device Role | **Spine** |
+   | Device Type | **Nexus 92348GC-X** |
+   | Status  | **Active** |
+   | Platform | **nxos** |
+   | Site | **Paris Data Center** |
+   | Tenant | **Global Tech** |
 
-   b. Click on the **Create** button to save the new device.
-
-6. Repeat the above steps to create the following devices:
-
-| Device Name|   Device Type | Platform |
-|-------------|-------------|----------|
-| spine2-nxos  | Nexus 92348GC-X | nxos |
-| leaf1-ios | Catalyst 9300-24P | ios |
-| leaf2-ios | Catalyst 9300-24P | ios |
-
+3. Repeat the process to create **spine2** using the same values.
+4. Verify that both devices now appear in the device list.
 
 ## Exercise 3: Working with NetBox Racks
-In this exercise, you'll be working with the physical layout of your network hardware by placing devices into racks.
+In this exercise, you'll install the spine devices into a rack and verify the front and rear elevation views.
 
-
-
-### Task 1 - **Adding Devices to a Rack**
-Here, you'll place your previously defined devices into a rack.
-
-1. Under the **Organization** menu, click **Racks**.
-2. Click the **+ Add** button to create a new rack.
-3. Fill in the required fields below to create a new rack and click the **Create** button.
-
- | Setting | Description |
-   |---------|-------------|
-   | Site   | Enter **Paris Data Center**. |
-   | Name | Enter **R1**. |
-   | Status | Select **Active**. |
-   | Tenant | Select **Global Tech**. |
-
-4. Now, under the **Devices** menu, click **Devices**.
-5. For each device:
-
-   a. Click on the device name to open the device details.
-
-   b. Click **Edit** to open the device edit form.
-
-   c. In the form, find the **Rack** field and select **R1**.
-
-   d. Specify the **Position** in the rack where the device is installed. Positions are shown below:
-
-   | Device Name  | Postion | Rack Face |
-   |-------------|-------------| ---- |
-   | spine1-nxos  | **U42.0** | Front |
-   | spine2-nxos  | **U41.0** | Front |
-   | leaf1-ios |    **U40.0** | Front |
-   | leaf2-ios |    **U39.0** | Front |
-
-   e. Click on the **Update** button to save the changes.
-
-### Task 2 - **Viewing the Rack Elevation**
-After adding devices to the rack, you'll be able to visualize the physical layout of hardware in the rack.
-
-
-1. Go back to the **Organization** menu and click **Racks**.
-
-2. Notice the Space utilization column on the right hand side.
-
-2. Click on the name of the rack to which you assigned the devices.
-
-3. You should now be able to see a graphical representation of the rack, showing the devices installed in it. This is the rack elevation. Devices are shown at the positions you assigned to them.
-
-
-
-
-
-## Exercise 4: Working with the NetBox IPAM
-In this exercise, you'll work with NetBox's IP address management (IPAM) features to manage your network's IP space.
-
-### Task 1 - **Creating a Prefix**
-First, you'll define a block of IP space that you'll be assigning addresses from.
-
-
-1. Under the **IPAM** menu, click **Prefixes**.
-2. Click the **+ Add** button to add a new prefix.
-3. Fill in the required fields in the form:
+### Task 1 – Create the Rack
+1. Under the **Organization** menu, click **Racks** and then **+ Add**.
+2. Create rack **R1** with the following values:
 
    | Setting | Description |
    |---------|-------------|
-   | Prefix | Enter **172.29.151.0/24**. |
-   | Status | Select the appropriate status (e.g., **Active**). |
-   | Site | Select the **Paris Data Center**. |
-   | Tenant | Select **Global Tech**. |
+   | Site   | **Paris Data Center** |
+   | Name | **R1** |
+   | Status | **Active** |
+   | Tenant | **Global Tech** |
 
-4. Click on the **Create** button to save the new prefix.
+3. Click **Create** to save the rack.
 
-### Task 2 - **Assigning an IP from the Prefix**
-Next, you'll assign individual addresses from your defined prefix to your devices management interfaces.
+### Task 2 – Mount Devices in the Rack
+1. Open **Devices > Devices**.
+2. Edit **spine1** and set:
+   * **Rack**: R1
+   * **Position**: U42.0
+   * **Face**: Front
+   Then click **Update**.
+3. Repeat for **spine2** using position **U41.0** on the **Front** face.
 
+### Task 3 – Review Front and Rear Elevations
+1. Navigate back to **Organization > Racks** and open **R1**.
+2. View the **Front** elevation and confirm both devices appear in the expected positions.
+3. Switch to the **Rear** elevation. Notice the devices do not appear because the device type is not marked as full depth.
 
-1. Go back to the **Devices** menu and click **Devices**.
-2. For each device:
+### Task 4 – Enable Full Depth and Re-Check
+1. Go to **Devices > Device Types** and open the Nexus device type.
+2. Click **Edit**, set **Full Depth** to **Yes**, and click **Update**.
+3. Return to **Organization > Racks > R1** and confirm both the **Front** and **Rear** elevations now display the devices with the uploaded imagery.
 
-   a. Click on the device name to open the device details.
+## Exercise 4: Working with the NetBox IPAM
+In this exercise, you'll define a VRF and prefix, then assign management addresses to the spine devices.
 
-   b. In the device details, click **Interfaces**.
+### Task 1 – Create a VRF
+1. Navigate to **IPAM > VRFs** and click **+ Add**.
+2. Create the VRF using the following values:
 
-   c. Click **Configure Table**, and select **Management Only** as another selected column. Click **Save**. You will only need to do this once.
+   | Setting | Description |
+   |---------|-------------|
+   | Name | **Global Tech Production** |
+   | RD   | Leave blank (NetBox will generate one). |
+   | Tenant | **Global Tech** |
 
-   d. Now you will see the management interface, denoted with a green tick.
+3. Click **Create** to save the VRF.
 
-   e. Click the **+** to the right of the interface, and select **IP Address**.
+### Task 2 – Create a Prefix
+1. Go to **IPAM > Prefixes** and click **+ Add**.
+2. Add the prefix with these values:
 
-   f. Add the IP of the management interface. Use the nessecary IP below based on device.
+   | Setting | Description |
+   |---------|-------------|
+   | Prefix | **172.29.151.0/24** |
+   | VRF | **Global Tech Production** |
+   | Status | **Active** |
+   | Site | **Paris Data Center** |
+   | Tenant | **Global Tech** |
 
-      | Device Name  | Address |
-      |-------------|-------------|
-      | spine1-nxos  | **172.29.151.1/24** |
-      | spine2-nxos  | **172.29.151.2/24** |
-      | leaf1-ios |    **172.29.151.3/24** |
-      | leaf2-ios |    **172.29.151.4/24** |
+3. Click **Create** to save the prefix.
 
-   g. Select **Tenant** as **Global Tech**.
+### Task 3 – Assign Management IPs to Devices
+1. Open **Devices > Devices** and select **spine1**.
+2. On the **Interfaces** tab, locate the management interface (for example, **mgmt0**).
+3. Click **+** and choose **IP Address**.
+4. Assign **172.29.151.1/24**, ensuring the **VRF** is **Global Tech Production** and the **Tenant** is **Global Tech**.
+5. Repeat for **spine2** using **172.29.151.2/24**.
 
-   f. Click on the **Update** button to save the changes.
+### Task 4 – Review Prefix Utilization
+1. Return to **IPAM > Prefixes** and open **172.29.151.0/24**.
+2. Confirm the utilization reflects the two assigned addresses.
+3. Note the VRF relationship; this data will be consumed when generating device configurations in a later workbook.
 
-### Task 3 - **Viewing Prefix Utilization**
-Finally, you'll check the utilization of your defined prefix to see how many addresses are left.
-
-1. Go back to the **IPAM** menu and click **Prefixes**.
-2. Find the prefix **172.29.151.0/24** in the list and click on it to open the prefix details.
-3. In the prefix details, you can see the **Utilization** bar.
-4. Click on the **IP Addresses** tab to see the assigned IPs.
-
-## Exercise 5: Working with Custom Fields
-In this exercise, you'll work with NetBox custom fields.
-
-### Task 1 - **Creating a Custom Field**
-You will now create a new custom field to store the OSPF Router ID for each device.
-
-1. Go to **Customization** on the left of the NetBox UI.
-2. Click **+** next to **Custom Fields**.
-3. Create a new custom field by selecting the following options:
-
-      |   |  |
-      |-------------|-------------|
-      | **Content types**  | **DCIM > Device** |
-      | **Name**  | **ospf_router_id** |
-      | **Type** |    **Text** |
-
-### Task 2 - **Populating a Custom Field**
-
-1. Goto each Device.
-2. Add their OSPF Router ID using the new custom field created, using the following values:
-
-      | Device Name  | Custom Field Value |
-      |-------------|-------------|
-      | spine1-nxos  | **1.1.1.1** |
-      | spine2-nxos  | **2.2.2.2** |
-      | leaf1-ios  |    **3.3.3.3** |
-      | leaf2-ios   |    **4.4.4.4** |
