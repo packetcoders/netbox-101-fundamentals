@@ -3,6 +3,7 @@
 ## Learning Objectives
 
 TBC
+
 ## Overview
 
 In this workbook we will create a configuration template using Jinja2 syntax, assign it to devices, and validate the rendered configurations.
@@ -10,8 +11,8 @@ In this workbook we will create a configuration template using Jinja2 syntax, as
 ## Before You Begin
 
 1. Access your NetBox instance.
-2. Ensure the Config Contexts (NTP, Syslog, Service Endpoint), custom field (`ospf_router_id`), and ServiceEndpoint custom object were completed in Workbook 2.
-3. Confirm the spine devices from Workbook 1 have management IPs assigned within the Global Tech Production VRF.
+2. Ensure the Config Contexts (NTP, Syslog), custom field (`ospf_area`) is configured
+
 
 ## Exercise 1: Creating a Config Template
 
@@ -26,15 +27,13 @@ In this exercise we will build a template that consumes the data created in the 
 5. Review the **Context Data** panel and confirm it includes:
    * `ntp_servers` and `syslog_servers` from Config Contexts.
    * `service_endpoint` data from the ServiceEndpoint custom object.
-   * `device.cf.ospf_router_id` from the custom field.
-   * The device’s assigned management address.
 
-### Task 2 – Create the Cisco Template
+### Task 2 – Create the Nexus Template
 
 1. In the sidebar menu, click on **Provisioning**.
 2. Click on **Config Templates** to access the template list.
 3. Click the **+ Add** button to create a new template.
-4. In the **Name** field, enter **Cisco Template**.
+4. In the **Name** field, enter **Nexus Template**.
 5. In the **Template code** box, enter the following Jinja2 syntax (update the interface name if your management interface differs):
 
     ```
@@ -79,53 +78,29 @@ In this exercise we will build a template that consumes the data created in the 
     }
     ```
 
+> [NOTE] This will ensure no erroneous white space is carried over to the rendered output.
+
 7. Click **Submit** to create the template.
 
-### Task 3 – Verify Template Compilation
+### Task 3 – Assign Template to Device
 
-1. Open the newly created **Cisco Template** and click **Preview**.
-2. Choose **spine1** in the preview form and render the template.
-3. Confirm the output contains the management interface, OSPF router ID, NTP/Syslog blocks, and service endpoint comment.
+1. Go to the **Devices** list.
+2. Click on **spine1** to edit its configuration.
+3. Scroll down to the **Management** section.
+4. Choose **Nexus Template** from the **Config Template** dropdown and click **Save**.
 
 ## Exercise 2: Rendering the Template
 
-Here we will assign the template to the spine devices and validate the rendered configuration.
+Here we will view the generated configuration for our device.
 
-### Task 1 – Assign Template to Devices
-
-1. In the sidebar menu, click on **Devices**.
-2. Under Devices, click on **Devices** to access the devices list.
-3. Using the check boxes, select **spine1** and **spine2**.
-4. Click the **Edit Selected** button at the bottom of the screen.
-5. In the form that appears, scroll down to the **Configuration** section.
-6. Choose **Cisco Template** from the **Config Template** dropdown and click **Save**.
-
-### Task 2 – Validate Rendered Output
+### Task 1 – View Rendered Configuration
 
 1. From the devices list, open **spine1** and switch to the **Render Config** tab.
-2. Confirm the rendered configuration matches the preview results, including:
-   * Management interface stanza with VRF assignment.
-   * NTP and Syslog blocks reflecting the weighted Config Contexts.
-   * OSPF router ID sourced from the custom field.
-   * Service endpoint comment from the custom object data.
-3. Repeat for **spine2** and verify the router ID reflects its custom field value.
+2. The rendered configuration should now be displayed.
 
-### Task 3 – Download Rendered Config
+
+### Task 2 – Download Rendered Config
 
 1. While viewing the rendered config, click **Download**.
-2. Save the file locally and review it to ensure whitespace is trimmed as expected.
+2. Save the file locally and review the configuration.
 
-## Exercise 3: Iterating on Data-Driven Outputs
-
-This exercise highlights how data changes propagate through the rendered configuration.
-
-### Task 1 – Update Shared Data
-
-1. Navigate to **Provisioning > Config Contexts** and edit the **Syslog 2** context.
-2. Replace one of the syslog server IPs with a new value and click **Submit**.
-
-### Task 2 – Re-render and Observe
-
-1. Return to **Devices > Devices > spine1** and open the **Render Config** tab.
-2. Verify the syslog section reflects the updated value.
-3. Optionally adjust the `ospf_router_id` custom field or the ServiceEndpoint object to see how those changes appear in the rendered output.

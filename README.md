@@ -1,9 +1,9 @@
-# NetBox Fundamentals Live
-The repo contains the workbooks for the NetBox Labs:
-> NetBox Fundamentals Live
+# NetBox Fundamentals - 101
 
-## Repo Layout
-* Exercises - `workbooks/`
+## Workbooks
+- Workbook 001: The NetBox Model
+- Workbook 002: Extending the Model
+- Workbook 003: Config Generation
 
 ## Terms and Conditions
 All content within this repo is owned by Packet Coders.<br>

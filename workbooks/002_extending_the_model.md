@@ -129,8 +129,7 @@ In this task, we will verify that the local context data correctly overrides the
 
 ## Exercise 2: Working with Custom Fields
 
-In this exercise, we will migrate custom field work from Workbook 1, expanding it to support upcoming configuration templates.
-
+In this exercise, rather than add data at just a device or VM level, we will use custom fields to add data to interface objects. 
 ### Task 1 – Create a Custom Field
 
 1. Go to **Customization > Custom Fields** and click **+ Add**.
@@ -138,105 +137,20 @@ In this exercise, we will migrate custom field work from Workbook 1, expanding i
 
    | Setting | Description |
    |---------|-------------|
-   | Content types | **DCIM > Device** |
-   | Name | **ospf_router_id** |
-   | Type | **Text** |
+   | Content types | **DCIM > Interface** |
+   | Name | **ospf_area** |
+   | Type | **Integer** |
 
 3. Click **Create** to save the custom field.
+4. Verify the custom field is created successfully by going to any of your device`s interfaces and checking that the new field appears in the custom fields section.
 
-### Task 2 – Assign the Custom Field to Devices
+### Task 2 - Populate Custom Field
 
-1. Navigate to **Devices > Devices**.
-2. Edit **spine1** and set the custom field value to **1.1.1.1** under the **Custom Fields** section, then click **Update**.
-3. Repeat for **spine2** using **2.2.2.2**.
-4. (Optional) If you created additional devices in Workbook 1, assign values accordingly.
-
-### Task 3 – Confirm Custom Field Availability
-
-1. Return to **Devices > Devices** and open **spine1**.
-2. Switch to the **Config Context** tab.
-3. Confirm the rendered context now includes the custom field value under `device.cf.ospf_router_id`.
+1. Go to **Devices > Devices**.
+2. Select **spine1** and navigate to its **Interfaces** tab.
+3. Edit the interface (e.g., `Ethernet1/1`) and fill in the **ospf_area** custom field with `0`.
+4. Save the interface changes.
 
 ## Exercise 3: Working with Custom Objects
 
-We will model a simple custom object to represent an external service reference and expose it via Config Contexts.
-
 ### Task 1 – Create a Custom Object Type
-
-1. Go to **Customization > Custom Object Types** and click **+ Add**.
-2. Define the object type with the following values:
-
-   | Setting | Description |
-   |---------|-------------|
-   | Name | **ServiceEndpoint** |
-   | Key | **service_endpoint** |
-   | Description | "Represents an external service endpoint referenced by devices." |
-
-3. Add two JSON fields:
-   * **name** (Type: Text)
-   * **url** (Type: URL)
-4. Click **Create** to save the custom object type.
-
-### Task 2 – Create a Custom Object Instance
-
-1. In the **Custom Objects** list, click **+ Add**.
-2. Choose **ServiceEndpoint** as the type.
-3. Provide the following values:
-
-   | Field | Value |
-   |-------|-------|
-   | Name | **NTP Service** |
-   | JSON | `{ "name": "NTPOperations", "url": "https://ntp.globaltech.example" }` |
-
-4. Click **Create** to save the custom object.
-
-### Task 3 – Reference the Custom Object in a Config Context
-
-1. Navigate back to **Provisioning > Config Contexts**.
-2. Edit the **NTP** context created earlier.
-3. Append the following key/value pair to the JSON payload:
-
-    ```json
-    "service_endpoint": {
-      "name": "NTPOperations",
-      "url": "https://ntp.globaltech.example"
-    }
-    ```
-
-4. Click **Submit** to update the context.
-5. Return to **spine1 > Config Contexts** and confirm the additional data appears in the rendered context.
-
-## Exercise 4: Validating Config Context Overrides
-
-In this exercise, we will override shared context data using local overrides to observe precedence.
-
-### Task 1 – Create a Local Override
-
-1. While still on the device details page, click **Edit**.
-2. Scroll down to **Local Config Context Data**.
-3. Add the following JSON:
-
-    ```json
-    {
-      "syslog_servers": [
-        "10.1.200.3",
-        "10.1.200.4"
-      ]
-    }
-    ```
-4. Click **Save**.
-
-
-
-
-### Task 2 – Validate the Rendered Config Context Data
-
-1. Go back to the **Config Context** tab.
-2. Confirm the rendered context reflects the locally defined syslog servers while still including the shared data (NTP servers, service endpoint, custom field values).
-
-<details>
-<summary><b>Answer</b></summary>
-<br>
-Yes. The Syslog data has changed again because the Local Context data overrides values from the shared contexts while leaving the other shared elements (NTP servers, service endpoint, custom fields) intact.
-
-</details>

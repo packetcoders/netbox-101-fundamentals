@@ -111,19 +111,20 @@ In this exercise, you will import a device type, upload elevation imagery, and c
 You'll use the NetBox community device type library to seed your environment with the required hardware definition.
 
 1. Under the **Devices** menu, click **Manufacturers** and create the **Cisco** manufacturer if it does not already exist.
-2. Visit the Device Type Library on GitHub: <https://github.com/netbox-community/devicetype-library/>.
-3. Search for **cisco_nexus-92348gc-x** (Nexus 92348GC-X) and open the YAML definition.
-4. Copy the YAML contents to your clipboard.
-5. Return to NetBox and navigate to **Devices > Device Types > Import**.
-6. Paste the YAML into the **Data** box, then click **Submit** to create the device type.
+2. Visit the Device Type Library on GitHub. Click (here)[https://github.com/netbox-community/devicetype-library/].
+3. Search for **N9K-C9236C.yaml** (Nexus 9236C) and open the YAML definition.
+4. Ensure you click the device-types/Cisco/N9K-C9236C.yaml link to get the FULL yaml content.
+5. Copy the YAML contents to your clipboard.
+6. Return to NetBox and navigate to **Devices > Device Types > Import**.
+7. Paste the YAML into the **Data** box, then click **Submit** to create the device type.
 
 ### Task 2 – Add Elevation Images to the Device Type
 1. Download the elevation images from the GitHub repository:
-   * `cisco-nexus-92348gc-x.front.png`
-   * `cisco-nexus-92348gc-x.rear.png`
-2. In NetBox, open **Devices > Device Types** and select the newly imported Nexus device type.
-3. Use the **Front Image** tab to upload the front elevation PNG.
-4. Use the **Rear Image** tab to upload the rear elevation PNG.
+   * `cisco-n9k-c9236c.front.jpg` [(link)](https://github.com/netbox-community/devicetype-library/blob/master/elevation-images/Cisco/cisco-n9k-c9236c.front.jpg)
+   * `cisco-n9k-c9236c.rear.jpg` [(link)](https://github.com/netbox-community/devicetype-library/blob/master/elevation-images/Cisco/cisco-n9k-c9236c.rear.jpg)
+2. In NetBox, open **Devices > Device Types** and select the newly imported **N9K-C9236C** device type.
+3. Use the **Front Image** tab to upload the front elevation JPG.
+4. Use the **Rear Image** tab to upload the rear elevation JPG.
 5. Set **Full Depth** to **Yes**.
 
 ### Task 3 – Create Spine Devices
@@ -136,7 +137,7 @@ Before creating devices, ensure the **nxos** platform and the **Spine** device r
    |---------|-------------|
    | Name    | **spine1** |
    | Device Role | **Spine** |
-   | Device Type | **Nexus 92348GC-X** |
+   | Device Type | **N9K-C9236C** |
    | Status  | **Active** |
    | Platform | **nxos** |
    | Site | **Paris Data Center** |
@@ -176,7 +177,7 @@ In this exercise, you'll install the spine devices into a rack and verify the fr
 3. Switch to the **Rear** elevation. Notice the devices do not appear because the device type is not marked as full depth.
 
 ### Task 4 – Enable Full Depth and Re-Check
-1. Go to **Devices > Device Types** and open the Nexus device type.
+1. Go to **Devices > Device Types** and open the **N9K-C9236C** device type.
 2. Click **Edit**, set **Full Depth** to **Yes**, and click **Update**.
 3. Return to **Organization > Racks > R1** and confirm both the **Front** and **Rear** elevations now display the devices with the uploaded imagery.
 
