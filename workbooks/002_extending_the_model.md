@@ -147,7 +147,7 @@ In this exercise, rather than add data at just a device or VM level, like we did
 3. Edit the interface (e.g., `Ethernet1/1`) and fill in the **ospf_area** custom field with `0`.
 4. Save the interface changes.
 
-> [NOTE]
+> [!NOTE]
 > We will later use this data with Config Templates when generating our configuration via Config Templates.
 
 ## Exercise 3: Working with Custom Objects
@@ -193,7 +193,7 @@ In this exercise, rather than add data at just a device or VM level, like we did
 
 ### BONUS - Update the Custom Object Field Order
 
-> [NOTE]
+> [!NOTE]
 > This task is a bonus and time permitting!
 
 You will have noticed the field order for our object when we entered the data was not as we would expect. Let's fix that.

@@ -2,7 +2,7 @@
 
 ## Learning Objectives
 
-TBC
+TBC 
 
 ## Overview
 Through the following exercises, we will be populating a new NetBox instance based on the following.
@@ -55,7 +55,7 @@ The following prerequisites are required before beginning these exercises:
 
 * Open a session to your NetBox instance directly within your browser.
 
-Note: Your username and password would have been supplied to you previously.
+> [!NOTE]Your username and password would have been supplied to you previously.
 
 
 

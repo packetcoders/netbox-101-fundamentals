@@ -4,6 +4,7 @@
 
 TBC
 
+
 ## Overview
 
 In this workbook we will create a configuration template using Jinja2 syntax, assign it to devices, and validate the rendered configurations.
@@ -27,7 +28,7 @@ In this exercise we will build a template that consumes the data created in the 
 5. Review the **Context Data** panel and confirm it includes:
    * `syslog_servers` from Config Contexts.
    
-> [NOTE] We reference the custom field data via the device object - `<Device: spine1>`.
+> [!NOTE] We reference the custom field data via the device object - `<Device: spine1>`.
 
 ### Task 2 – Create the Config Template
 
@@ -75,7 +76,7 @@ In this exercise we will build a template that consumes the data created in the 
     }
     ```
 
-> [NOTE] This will ensure no erroneous white space is carried over to the rendered output.
+> [!NOTE] This will ensure no erroneous white space is carried over to the rendered output.
 
 7. Click **Submit** to create the template.
 
