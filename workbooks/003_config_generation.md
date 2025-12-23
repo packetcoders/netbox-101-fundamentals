@@ -2,8 +2,13 @@
 
 ## Learning Objectives
 
-TBC
+By the end of this workbook, you will be able to:
 
+- Create a configuration template using Jinja2 in NetBox.
+- Consume data from Config Contexts, Custom Fields, and device objects.
+- Assign config templates to devices.
+- Render and validate device configurations.
+- Download rendered configurations for review or deployment.
 
 ## Overview
 

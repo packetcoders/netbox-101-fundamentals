@@ -2,7 +2,13 @@
 
 ## Learning Objectives
 
-TBC 
+By the end of this workbook, you will be able to:
+- Understand the NetBox data model and how core objects relate.
+- Create tenants, regions, and sites.
+- Import device types and add elevation images.
+- Create and rack devices with roles and platforms.
+- Configure full-depth rack elevations.
+- Define VRFs, prefixes, and assign IP addresses.
 
 ## Overview
 Through the following exercises, we will be populating a new NetBox instance based on the following.

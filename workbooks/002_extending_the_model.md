@@ -2,7 +2,11 @@
 
 ## Learning Objectives
 
-TBC
+By the end of this workbook, you will be able to:
+- Extend the NetBox data model using Custom Fields, Custom Objects, and Config Contexts.
+- Add structured and reusable data to NetBox objects.
+- Control data inheritance and precedence using context weights and local context.
+- Relate custom objects to core NetBox models.
 
 ## Overview
 
@@ -23,32 +27,49 @@ In this exercise, we will create Config Contexts and assign them to all devices 
 1. Click on the **Provisioning** menu item in the sidebar.
 2. Under the Provisioning menu, click on **Config Contexts**.
 3. In the Config Contexts page, click on the **+ Add** button.
-4. In the form that appears, enter **Syslog 1** as the name and set the weight to 900.
-5. In the data box, paste the following JSON:
+4. Add the following:
 
-    ```json
-    {
-      "syslog_servers": [
-        "192.168.100.1",
-        "192.168.100.2"
-      ]
-    }
-    ```
+<table>
+<tr>
+<th>Name</th>
+<th>Data</th>
+<th>Weight</th>
+</tr>
+<tr>
+<td>Syslog 1</td>
+<td><pre>
+{
+  "syslog_servers": [
+    "192.168.100.1",
+    "192.168.100.2"
+  ]
+}
+</pre></td><td>900</td></tr>
+
+</table>
+
+5. Under **Assignment** select **Global Tech** under **Tenant**.
+6. Click **Submit** to create the context.
+7. Follow the steps above to create a new config context based on the below:
 
 
-
-6. Under **Assignment** select **Global Tech** under **Tenant**.
-7. Click **Submit** to create the NTP context.
-8. Repeat steps 3-6 to create a context named **Syslog 2** with JSON data for syslog servers (below), and set the weight to 1000.
-
-    ```json
-    {
-      "syslog_servers": [
-        "192.168.200.1",
-        "192.168.200.2"
-      ]
-    }
-    ```
+<table>
+<tr>
+<th>Name</th>
+<th>Data</th>
+<th>Weight</th>
+</tr>
+<tr>
+<td>Syslog 2</td>
+<td><pre>
+{
+  "syslog_servers": [
+    "192.168.200.1",
+    "192.168.200.2"
+  ]
+}
+</pre></td><td>1000</td></tr>
+</table>
 
 ### Task 2 – Validate Config Context Data
 
@@ -178,9 +199,9 @@ In this exercise, rather than add data at just a device or VM level, like we did
 | Field | Value |
 |-------|-------|
 | devices | Select your devices |
-| manufacturer | Select **Cisco** manufacturer |
-| start_date | Enter a start date |
-| end_date | Enter an end date |
+| manufacturer | Select **Cisco** |
+| start_date | Enter a start date (e.g., 2025-01-01) |
+| end_date | Enter an end date (e.g., 2026-01-01) |
 
 5. Click **Create** to save the custom object.
 
