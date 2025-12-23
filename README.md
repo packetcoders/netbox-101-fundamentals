@@ -8,4 +8,4 @@
 ## Terms and Conditions
 All content within this repo is owned by Packet Coders.<br>
 Distribution of any content or material within this repo is not permitted.<br>
-Copyright 2025, Packet Coders.
+Copyright 2026, Packet Coders.

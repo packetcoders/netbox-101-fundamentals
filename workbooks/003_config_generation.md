@@ -11,7 +11,7 @@ In this workbook we will create a configuration template using Jinja2 syntax, as
 ## Before You Begin
 
 1. Access your NetBox instance.
-2. Ensure the Config Contexts (NTP, Syslog), custom field (`ospf_area`) is configured
+2. Ensure the Config Contexts (`syslog_servers`), and the custom field (`ospf_area`) are configured.
 
 
 ## Exercise 1: Creating a Config Template
@@ -25,48 +25,45 @@ In this exercise we will build a template that consumes the data created in the 
 3. Click on **spine1** to open its details page.
 4. Switch to the **Render Config** tab.
 5. Review the **Context Data** panel and confirm it includes:
-   * `ntp_servers` and `syslog_servers` from Config Contexts.
-   * `service_endpoint` data from the ServiceEndpoint custom object.
+   * `syslog_servers` from Config Contexts.
+   
+> [NOTE] We reference the custom field data via the device object - `<Device: spine1>`.
 
-### Task 2 – Create the Nexus Template
+### Task 2 – Create the Config Template
 
 1. In the sidebar menu, click on **Provisioning**.
 2. Click on **Config Templates** to access the template list.
 3. Click the **+ Add** button to create a new template.
-4. In the **Name** field, enter **Nexus Template**.
-5. In the **Template code** box, enter the following Jinja2 syntax (update the interface name if your management interface differs):
+4. In the **Name** field, enter **NXOS Config Template**.
+5. In the **Template code** box, enter the following Jinja2 syntax:
 
     ```
     hostname {{ device.name }}
 
-    interface mgmt0
-      description Management Interface
-    {% if device.primary_ip4 %}
-      ip address {{ device.primary_ip4.address }}
-      ip vrf forwarding {{ device.primary_ip4.vrf.name }}
-    {% endif %}
-
-    {% if ntp_servers %}
-    ! NTP servers delivered via Config Context
-    {% for server in ntp_servers %}
-    ntp server {{ server }}
-    {% endfor %}
-    {% endif %}
-
-    {% if syslog_servers %}
-    ! Syslog servers delivered via Config Context (respecting weights and overrides)
     {% for syslog_server in syslog_servers %}
     logging host {{ syslog_server }}
     {% endfor %}
-    {% endif %}
+
+    {% for interface in device.interfaces.all() %}
+      interface {{ interface.name }}
+      {% if interface.ip_addresses.all() %}
+        {% for ip in interface.ip_addresses.all() %}
+        ip address {{ ip.address  }} 
+        {% if interface.cf.ospf_area %}
+        ip router ospf 1 area {{ interface.cf.ospf_area }}
+        {% endif %}
+        no shutdown
+        {% endfor %}
+      {% else %}
+        no ip address
+        shutdown
+      {% endif %}
+    {% endfor %}
+
+    ip route 0.0.0.0 0.0.0.0 172.29.151.254
 
     router ospf 1
-      router-id {{ device.cf.ospf_router_id }}
-
-    {% if service_endpoint %}
-    ! External service reference provided by Custom Object
-    ! {{ service_endpoint.name }} -> {{ service_endpoint.url }}
-    {% endif %}
+      router-id 1.1.1.1
     ```
 
 6. Scroll down to **Environment params** and add the following JSON to control whitespace:
@@ -87,7 +84,7 @@ In this exercise we will build a template that consumes the data created in the 
 1. Go to the **Devices** list.
 2. Click on **spine1** to edit its configuration.
 3. Scroll down to the **Management** section.
-4. Choose **Nexus Template** from the **Config Template** dropdown and click **Save**.
+4. Choose **NXOS Config Template** from the **Config Template** dropdown and click **Save**.
 
 ## Exercise 2: Rendering the Template
 
@@ -103,4 +100,7 @@ Here we will view the generated configuration for our device.
 
 1. While viewing the rendered config, click **Download**.
 2. Save the file locally and review the configuration.
+
+🎉 **CONGRATULATIONS!**
+You have now successfully modeled a simple network, extended the model, and automated the generation of device configuration all from within NetBox.
 
