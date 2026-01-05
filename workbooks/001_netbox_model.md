@@ -118,19 +118,18 @@ You'll use the NetBox community device type library to seed your environment wit
 
 1. Under the **Devices** menu, click **Manufacturers** and create the **Cisco** manufacturer if it does not already exist.
 2. Visit the Device Type Library on GitHub. Click (here)[https://github.com/netbox-community/devicetype-library/].
-3. Search for **N9K-C9236C.yaml** (Nexus 9236C) and open the YAML definition.
-4. Ensure you click the device-types/Cisco/N9K-C9236C.yaml link to get the FULL yaml content.
-5. Copy the YAML contents to your clipboard.
-6. Return to NetBox and navigate to **Devices > Device Types > Import**.
-7. Paste the YAML into the **Data** box, then click **Submit** to create the device type.
+3. Navigate to `device-types/Cisco/N9K-C9236C.yaml` to get the FULL YAML content.
+4. Copy the YAML contents to your clipboard.
+5. Return to NetBox and navigate to **Devices > Device Types > Import**.
+6. Paste the YAML into the **Data** box, then click **Submit** to create the device type.
 
 ### Task 2 – Add Elevation Images to the Device Type
 1. Download the elevation images from the GitHub repository:
    * `cisco-n9k-c9236c.front.jpg` [(link)](https://github.com/netbox-community/devicetype-library/blob/master/elevation-images/Cisco/cisco-n9k-c9236c.front.jpg)
    * `cisco-n9k-c9236c.rear.jpg` [(link)](https://github.com/netbox-community/devicetype-library/blob/master/elevation-images/Cisco/cisco-n9k-c9236c.rear.jpg)
-2. In NetBox, open **Devices > Device Types** and select the newly imported **N9K-C9236C** device type.
-3. Use the **Front Image** tab to upload the front elevation JPG.
-4. Use the **Rear Image** tab to upload the rear elevation JPG.
+2. In NetBox, open **Devices > Device Types**, select the newly imported **N9K-C9236C** device type, and click **Edit**.
+3. Use the **Front Image** section to upload the front elevation JPG.
+4. Use the **Rear Image** section to upload the front elevation JPG.
 5. Set **Full Depth** to **Yes**.
 
 ### Task 3 – Create Spine Devices
@@ -156,7 +155,7 @@ Before creating devices, ensure the **nxos** platform and the **Spine** device r
 In this exercise, you'll install the spine devices into a rack and verify the front and rear elevation views.
 
 ### Task 1 – Create the Rack
-1. Under the **Organization** menu, click **Racks** and then **+ Add**.
+1. Under the **Racks** menu, click **Racks** and then **+ Add**.
 2. Create rack **R1** with the following values:
 
    | Setting | Description |
@@ -178,14 +177,9 @@ In this exercise, you'll install the spine devices into a rack and verify the fr
 3. Repeat for **spine2** using position **U41.0** on the **Front** face.
 
 ### Task 3 – Review Front and Rear Elevations
-1. Navigate back to **Organization > Racks** and open **R1**.
+1. Navigate back to **Racks > Racks** and open **R1**.
 2. View the **Front** elevation and confirm both devices appear in the expected positions.
-3. Switch to the **Rear** elevation. Notice the devices do not appear because the device type is not marked as full depth.
-
-### Task 4 – Enable Full Depth and Re-Check
-1. Go to **Devices > Device Types** and open the **N9K-C9236C** device type.
-2. Click **Edit**, set **Full Depth** to **Yes**, and click **Update**.
-3. Return to **Organization > Racks > R1** and confirm both the **Front** and **Rear** elevations now display the devices with the uploaded imagery.
+3. View the **Rear** elevation and confirm both devices appear in the expected positions.
 
 ## Exercise 4: Working with the NetBox IPAM
 In this exercise, you'll define a VRF and prefix, then assign management addresses to the spine devices.
@@ -201,6 +195,7 @@ In this exercise, you'll define a VRF and prefix, then assign management address
    | Tenant | **Global Tech** |
 
 3. Click **Create** to save the VRF.
+4. Leave the **RD Description** field blank.
 
 ### Task 2 – Create a Prefix
 1. Go to **IPAM > Prefixes** and click **+ Add**.

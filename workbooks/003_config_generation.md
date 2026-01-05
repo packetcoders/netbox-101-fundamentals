@@ -40,7 +40,7 @@ In this exercise we will build a template that consumes the data created in the 
 1. In the sidebar menu, click on **Provisioning**.
 2. Click on **Config Templates** to access the template list.
 3. Click the **+ Add** button to create a new template.
-4. In the **Name** field, enter **NXOS Config Template**.
+4. Enter **NXOS Config Template** in the **Name** field.
 5. In the **Template code** box, enter the following Jinja2 syntax:
 
     ```
@@ -106,6 +106,9 @@ Here we will view the generated configuration for our device.
 
 1. While viewing the rendered config, click **Download**.
 2. Save the file locally and review the configuration.
+
+> [!TIP]
+> If the rendered configuration does not include the `ospf_area` custom field output (for example, `ip router ospf 1 area ...` under an interface), return to Workbook 2 and verify the **ospf_area** custom field is populated for each interface before re-rendering.
 
 🎉 **CONGRATULATIONS!**
 You have now successfully modeled a simple network, extended the model, and automated the generation of device configuration all from within NetBox.

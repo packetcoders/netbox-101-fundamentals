@@ -107,7 +107,7 @@ In this exercise, we will create Config Contexts and assign them to all devices 
 <details>
 <summary><b>Answer</b></summary>
 <br>
-Yes. The Syslog data has changed due to the data within <b>Syslog 2</b> having a higher weight then <b>Syslog 1</b>. Therefore <b>Syslog 2</b> takes precedence.
+Yes. The Syslog data has changed because the data within <b>Syslog 1</b> now has a higher weight than <b>Syslog 2</b>. Therefore <b>Syslog 1</b> takes precedence.
 
 
 </details>
@@ -146,7 +146,6 @@ You will now see the **Rendered Context** updated with the local values from the
 ## Exercise 2: Working with Custom Fields
 
 In this exercise, rather than add data at just a device or VM level, like we did with Config Contexts, we will use custom fields to add data to interface objects. Custom fields allow us to extend the data model for specific objects like interfaces.
-.
 ### Task 1 – Create a Custom Field
 
 1. Go to **Customization > Custom Fields** and click **+ Add**.
@@ -172,6 +171,7 @@ In this exercise, rather than add data at just a device or VM level, like we did
 > We will later use this data with Config Templates when generating our configuration via Config Templates.
 
 ## Exercise 3: Working with Custom Objects
+
 
 ### Task 1 – Create a Custom Object Type
 
