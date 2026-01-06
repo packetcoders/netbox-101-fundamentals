@@ -190,9 +190,9 @@ In this exercise, rather than add data at just a device or VM level, like we did
 
 ### Task 2 – Create Custom Objects
 
-1. Go to **Custom Objects** and select **Custom Objects** in the sidebar menu.
-2. Click **+ Add** to create a new custom object.
-3. Select **License** as the object type.
+1. Go to **Custom Objects** and select **Custom Objects Types** in the sidebar menu.
+2. Select **License** as the object type.
+3. At the bottom of the screen click **+ Add**, to create an instance of your custom object.
 4. Fill in the fields:
 
 | Field | Value |
