@@ -33,7 +33,8 @@ In this exercise we will build a template that consumes the data created in the 
 5. Review the **Context Data** panel and confirm it includes:
    * `syslog_servers` from Config Contexts.
    
-> [!NOTE] We reference the custom field data via the device object - `<Device: spine1>`.
+> [!NOTE]
+> We reference the custom field data via the device object - `<Device: spine1>`.
 
 ### Task 2 – Create the Config Template
 
