@@ -82,7 +82,8 @@ In this exercise we will build a template that consumes the data created in the 
     }
     ```
 
-> [!NOTE] This will ensure no erroneous white space is carried over to the rendered output.
+> [!NOTE]
+> This will ensure no erroneous white space is carried over to the rendered output.
 
 7. Click **Submit** to create the template.
 
