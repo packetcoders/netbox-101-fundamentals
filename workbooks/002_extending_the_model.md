@@ -93,8 +93,7 @@ In this exercise, we will create Config Contexts and assign them to all devices 
 1. Go back to **Provisioning > Config Contexts** in the sidebar.
 2. Edit the **Syslog 1** context.
 3. Change the weight to **2000**.
-4. Add the following JSON data with a weight of **2000**:
-5. Click **Submit** to save the changes.
+4. Click **Submit** to save the changes.
 
 ### Task 4 – Observe Outcome
 
