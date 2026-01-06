@@ -207,7 +207,6 @@ In this exercise, you'll define a VRF and prefix, then assign management address
    | Prefix | **172.29.151.0/24** |
    | VRF | **Global Tech Production** |
    | Status | **Active** |
-   | Site | **Paris Data Center** |
    | Tenant | **Global Tech** |
 
 3. Click **Create** to save the prefix.
