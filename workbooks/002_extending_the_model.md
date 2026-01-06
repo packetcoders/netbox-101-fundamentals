@@ -230,7 +230,7 @@ You will have noticed the field order for our object when we entered the data wa
 | start_date | 30 |
 | end_date | 40 |
 
-5. Go back to the Custom Object, Click **Add*.
+5. Go back to the Custom Object, Click **Add**.
 
 You will now see the fields in the order you just specified.
 
