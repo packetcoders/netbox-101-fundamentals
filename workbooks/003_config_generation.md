@@ -44,34 +44,34 @@ In this exercise we will build a template that consumes the data created in the 
 4. Enter **NXOS Config Template** in the **Name** field.
 5. In the **Template code** box, enter the following Jinja2 syntax:
 
-    ```
-    hostname {{ device.name }}
+```
+hostname {{ device.name }}
 
-    {% for syslog_server in syslog_servers %}
-    logging host {{ syslog_server }}
-    {% endfor %}
+{% for syslog_server in syslog_servers %}
+logging host {{ syslog_server }}
+{% endfor %}
 
-    {% for interface in device.interfaces.all() %}
-      interface {{ interface.name }}
-      {% if interface.ip_addresses.all() %}
-        {% for ip in interface.ip_addresses.all() %}
-        ip address {{ ip.address  }} 
-        {% if interface.cf.ospf_area %}
-        ip router ospf 1 area {{ interface.cf.ospf_area }}
-        {% endif %}
-        no shutdown
-        {% endfor %}
-      {% else %}
-        no ip address
-        shutdown
-      {% endif %}
-    {% endfor %}
+{% for interface in device.interfaces.all() %}
+interface {{ interface.name }}
+{% if interface.cf.ospf_area %}
+  ip router ospf 1 area {{ interface.cf.ospf_area }}
+{% endif %}
+{% if interface.ip_addresses.all() %}
+{%   for ip in interface.ip_addresses.all() %}
+  ip address {{ ip.address }}
+  no shutdown
+{%   endfor %}
+{% else %}
+  no ip address
+  shutdown
+{% endif %}
+{% endfor %}
 
-    ip route 0.0.0.0 0.0.0.0 172.29.151.254
+ip route 0.0.0.0 0.0.0.0 172.29.151.254
 
-    router ospf 1
-      router-id 1.1.1.1
-    ```
+router ospf 1
+  router-id 1.1.1.1
+```
 
 6. Scroll down to **Environment params** and add the following JSON to control whitespace:
 
