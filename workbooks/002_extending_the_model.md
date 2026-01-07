@@ -93,8 +93,7 @@ In this exercise, we will create Config Contexts and assign them to all devices 
 1. Go back to **Provisioning > Config Contexts** in the sidebar.
 2. Edit the **Syslog 1** context.
 3. Change the weight to **2000**.
-4. Add the following JSON data with a weight of **2000**:
-5. Click **Submit** to save the changes.
+4. Click **Submit** to save the changes.
 
 ### Task 4 – Observe Outcome
 
@@ -191,9 +190,9 @@ In this exercise, rather than add data at just a device or VM level, like we did
 
 ### Task 2 – Create Custom Objects
 
-1. Go to **Custom Objects** and select **Custom Objects** in the sidebar menu.
-2. Click **+ Add** to create a new custom object.
-3. Select **License** as the object type.
+1. Go to **Custom Objects** and select **Custom Objects Types** in the sidebar menu.
+2. Select **License** as the object type.
+3. At the bottom of the screen click **+ Add**, to create an instance of your custom object.
 4. Fill in the fields:
 
 | Field | Value |
@@ -231,7 +230,7 @@ You will have noticed the field order for our object when we entered the data wa
 | start_date | 30 |
 | end_date | 40 |
 
-5. Go back to the Custom Object, Click **Add*.
+5. Go back to the Custom Object, Click **Add**.
 
 You will now see the fields in the order you just specified.
 
